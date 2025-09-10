@@ -80,7 +80,6 @@ class PIIDetector:
         return pii_count >= 2, pii_elements
     
     def detect_pii(self, data: Dict) -> Tuple[bool, List[str]]:
-        """Detect PII in a data record"""
         pii_found = False
         pii_fields = []
         for key, value in data.items():
@@ -105,7 +104,6 @@ class PIIDetector:
         return pii_found, pii_fields
     
     def redact_value(self, key: str, value: str) -> str:
-        """Redact PII values based on type"""
         value_str = str(value)
         
         if key == 'phone' and self.is_phone_number(value):
@@ -145,7 +143,6 @@ class PIIDetector:
         return value_str
     
     def process_record(self, record_data: Dict) -> Tuple[Dict, bool]:
-        """Process a single record for PII detection and redaction"""
         is_pii, pii_fields = self.detect_pii(record_data)
         
         redacted_data = {}
